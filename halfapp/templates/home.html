@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% if user.is_active %}
+
+
+<div class='contanier'>
+<h2>직원을 등록 해 주세요</h2>
+<form method = 'POST' action="{%url 'signup' %}">
+    {% csrf_token %}
+    직원 이름:
+    <br>
+    <input name='name' type='text' value="">
+    <br>
+    직원 코드:
+    <br>
+    <input name='code' type='text' value="">
+    <br>
+    <input class="btn btn-primary" type="submit" value="등록">
+</form>
+</div>
+
+<div class='contanier2'>
+<h2>출퇴근 관리</h2>
+{% for work in worklist%}
+<a href="{%url 'controll' work.id%}">{{work.name}}</a>
+<br>
+{% endfor%}
+
+
+</div>
+
+<div class='contanier3'>
+<h2>직원 현황</h2>
+<br>
+{% for work in worklist%}
+<p>직원 이름:{{work.name}}</p>
+<p>직원 코드:{{work.code}}</p>
+<p>출근 현황:{{work.youwork}}</p>
+<br>
+{% endfor %}
+</div>
+
+<div class='contanier4'>
+    <h2>출퇴근 기록</h2>
+<br>
+{% for recode in workrecode%}
+<p>직원 이름:{{recode.name}}</p>
+<p>출근 현황:{{recode.youwork}}</p>
+<p>변동 시간:{{recode.pub_date}}</p>
+<br>
+{% endfor %}
+</div>
+
+{%else%}
+
+<form method = "POST" action="{%url 'login'%}">
+    {% csrf_token %}
+    Username:
+    <br><br>
+    <input name="username" type="text" value="">
+    <br>
+    Password:
+    <br>
+    <input name="password" type="password" value="">
+    <br>
+    <br>
+    <input class="btn btn-primary" type="submit" value="Login">
+    
+    </form>
+{%endif%}
