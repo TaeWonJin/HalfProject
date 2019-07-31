@@ -1,1 +1,1 @@
-web: gunicorn halfproject.wsgi --log-file-
+web: gunicorn halfproject.wsgi --log-file -
